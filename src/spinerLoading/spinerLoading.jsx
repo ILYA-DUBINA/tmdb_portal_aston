@@ -1,6 +1,7 @@
 import { Alert, Spin } from 'antd';
 
 import './spinerLoading.css';
+import 'antd/dist/reset.css';
 
 export const SpinerLoading = () => (
   <div className='example'>
