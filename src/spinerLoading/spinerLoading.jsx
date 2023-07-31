@@ -2,6 +2,7 @@ import { Alert, Spin } from 'antd';
 
 import './spinerLoading.css';
 import 'antd/dist/reset.css';
+import ghost from '../image/ghost3.png';
 
 export const SpinerLoading = () => (
   <div className='example'>
@@ -11,9 +12,8 @@ export const SpinerLoading = () => (
   </div>
 );
 export const SpinerLoadingImage = () => (
-  <div className='example'>
-    <Spin tip='The image is loading... or the image is not'>
-      <Alert message='Alert...' description='Further...' type='info' />
-    </Spin>
+  <div className='spiner'>
+    <img class='spiner__image' src={ghost} alt='картинка призрака' />
+    <Spin className='spiner__spin' tip='The image is loading... or the image is not'></Spin>
   </div>
 );

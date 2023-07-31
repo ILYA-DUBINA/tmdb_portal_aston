@@ -1,29 +1,37 @@
+/* eslint-disable import/order */
 // import style from './MainBody.module.css';
 
 import moment from 'moment';
+// import { useDispatch } from 'react-redux';
 
-// import { SpinerLoadingImage } from '../../../spinerLoading/spinerLoading';
+import { SpinerLoadingImage } from '../../../spinerLoading/spinerLoading';
 import { minify } from '../../../utils/function';
 import './MainBodyItem.css';
+// import { useState } from 'react';
 // eslint-disable-next-line import/order
-import poster_path from '../../../image/background.jpg';
+// import poster_path from '../../../image/background.jpg';
 
 const MainBodyItem = (props: any) => {
-  // let image;
-  // let { genre_ids, id, overview, popularity, poster_path, release_date, title } = props;
-  let { original_title, release_date, overview } = props;
+  // let [valueSearch, setValueSearch] = useState(null);
+  // const dispatch = useDispatch<any>();
 
-  // if (poster_path !== null) {
-  //   image = (
-  //     <img
-  //       className='cover-image'
-  //       src={`https://image.tmdb.org/t/p/original${poster_path}`}
-  //       alt='картинка постера фильма'
-  //     />
-  //   );
-  // } else {
-  //   image = <SpinerLoadingImage />;
-  // }
+  // dispatch(fetchTMDBFunc());
+
+  let image;
+  // let { genre_ids, id, overview, popularity, poster_path, release_date, title } = props;
+  let { title, release_date, overview, poster_path } = props;
+
+  if (poster_path !== null) {
+    image = (
+      <img
+        className='cover-image'
+        src={`https://image.tmdb.org/t/p/original${poster_path}`}
+        alt='картинка постера фильма'
+      />
+    );
+  } else {
+    image = <SpinerLoadingImage />;
+  }
   return (
     <li className='card__outside'>
       {/* <div className='card'>
@@ -49,15 +57,15 @@ const MainBodyItem = (props: any) => {
       <a href='/'>
         <div className='card'>
           <div className='wrapper'>
-            {/* {image} */}
-            <img className='cover-image' src={poster_path} alt='картинка постера фильма' />
-            <h3 className='wrapper__title'>{original_title}</h3>
+            {image}
+            {/* <img className='cover-image' src={poster_path} alt='картинка постера фильма' /> */}
+            <h3 className='wrapper__title'>{title}</h3>
           </div>
           <div className='character card__inside'>
             <div className='card__content'>
               <div className='card__content-data'>
                 <div className='card__data-header'>
-                  <h2 className='card__data-title'>{original_title}</h2>
+                  <h2 className='card__data-title'>{title}</h2>
                 </div>
                 <p className='card__data-time'>{moment(release_date).format('MMMM D, YYYY')}</p>
                 {/* <div className='card__data-ganre'>

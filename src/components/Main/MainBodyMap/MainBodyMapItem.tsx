@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { MainBodyItem } from './MainBodyItem';
 
 import { SpinerLoading } from '../../../spinerLoading/spinerLoading';
-import { getRandomNumber } from '../../../utils/function';
+// import { getRandomNumber } from '../../../utils/function';
 
 const MainBodyMapItem = () => {
   let tmdbArray = useSelector((state: any) => state.tmdb.tmdb);
@@ -14,7 +14,7 @@ const MainBodyMapItem = () => {
     if (item === null) {
       return <SpinerLoading />;
     }
-    return <MainBodyItem key={getRandomNumber(0, 1000) + getRandomNumber(1000, 2000)} {...item} />;
+    return <MainBodyItem key={item.id} {...item} />;
   });
 
   return <>{elements}</>;

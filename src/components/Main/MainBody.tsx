@@ -12,7 +12,7 @@ const MainBody = () => {
   // }, []);
 
   return (
-    <div className={style.f}>
+    <div className={style.main__body}>
       <MainBodyMapItem />
     </div>
   );
