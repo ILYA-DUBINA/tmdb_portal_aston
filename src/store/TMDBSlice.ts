@@ -28,18 +28,20 @@ type objSearch = {
 export const getSearchArrayMovies = createAsyncThunk(
   'tmdb/getSearchArrayMovies',
   async (obj: objSearch, { rejectWithValue }) => {
-    // const { search, page } = obj;
-    console.log(obj, rejectWithValue);
+    const { search, page } = obj;
+    console.log(obj);
     try {
       let response = await fetch(
-        `${urlConst}search/movie?api_key=${keyApi}&language=en-US&query=${obj.search}&page=${obj.page}`,
+        `${urlConst}search/movie?api_key=${keyApi}&language=en-US&query=${search}&page=${
+          page === undefined ? 1 : page
+        }`,
       );
       if (!response.ok) {
         throw new Error('Server Error');
       }
       let data = await response.json();
       console.log(data);
-      return data.results;
+      return data;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -47,27 +49,29 @@ export const getSearchArrayMovies = createAsyncThunk(
 );
 type objPopular = {
   text: string;
+  page: number;
 };
 export const getPopularMovies = createAsyncThunk(
   'tmdb/getPopularMovies',
   async function (obj: objPopular, { rejectWithValue }) {
-    let { text } = obj;
+    let { text, page } = obj;
     try {
       let response;
 
       if (!text) {
-        response = await fetch(`${urlConst}movie/popular?api_key=${keyApi}`);
+        response = await fetch(`${urlConst}movie/popular?api_key=${keyApi}&page=${page === undefined ? 1 : page}`);
       } else if (text === 'top_rated') {
-        response = await fetch(`${urlConst}movie/top_rated?api_key=${keyApi}`);
+        response = await fetch(`${urlConst}movie/top_rated?api_key=${keyApi}&page=${page === undefined ? 1 : page}`);
       } else if (text === 'now_playing') {
-        response = await fetch(`${urlConst}movie/now_playing?api_key=${keyApi}`);
+        response = await fetch(`${urlConst}movie/now_playing?api_key=${keyApi}&page=${page === undefined ? 1 : page}`);
       }
 
       if (!response?.ok) {
         throw new Error('Server Error');
       }
       let data = await response.json();
-      return data.results;
+      console.log(data);
+      return data;
     } catch (error: any) {
       return rejectWithValue(error.message);
     }
@@ -141,6 +145,7 @@ const TMDBSlice = createSlice({
     ],
     status: null,
     error: null,
+    totalElements: 0,
   },
   reducers: {
     // getAllMovies(action) {
@@ -168,9 +173,9 @@ const TMDBSlice = createSlice({
       .addCase(getPopularMovies.fulfilled, (state, action) => {
         // state.status = 'idle';
 
-        localStorage.setItem('array', JSON.stringify(action.payload));
-
-        state.tmdb = action.payload ? action.payload : JSON.parse(localStorage.getItem('array') || '');
+        localStorage.setItem('array', JSON.stringify(action.payload.results));
+        state.totalElements = action.payload.total_results;
+        state.tmdb = action.payload.results ? action.payload.results : JSON.parse(localStorage.getItem('array') || '');
       })
       .addCase(getPopularMovies.rejected, (state, action) => {
         // state.loading = 'idle';
@@ -183,9 +188,11 @@ const TMDBSlice = createSlice({
       .addCase(getSearchArrayMovies.fulfilled, (state, action) => {
         // state.status = 'idle';
 
-        localStorage.setItem('arraySearch', JSON.stringify(action.payload));
-
-        state.tmdb = action.payload ? action.payload : JSON.parse(localStorage.getItem('arraySearch') || '');
+        localStorage.setItem('arraySearch', JSON.stringify(action.payload.results));
+        state.totalElements = action.payload.total_results;
+        state.tmdb = action.payload.results
+          ? action.payload.results
+          : JSON.parse(localStorage.getItem('arraySearch') || '');
       })
       .addCase(getSearchArrayMovies.rejected, (state, action) => {
         // state.loading = 'idle';

@@ -1,0 +1,18 @@
+.pagination {
+  height: 100%;
+
+  position: relative;
+
+  text-align: center;
+
+  padding-bottom: 18px;
+
+  z-index: 10;
+}
+
+.pagination .ant-pagination-options {
+  display: none;
+}
+.pagination__component {
+  color: white;
+}

@@ -12,35 +12,39 @@ import { debounce } from '../../utils/function';
 //   search: string,
 //   page: number
 // };
+interface Props {
+  numberPage: number;
+}
 
-const MainHead: React.FC = () => {
+const MainHead: React.FC<Props> = (props: Props): any => {
+  let { numberPage } = props;
   let [show, setShow] = useState('hidden');
   let [valueSearch, setValueSearch] = useState<string>('');
-  let [pageSearch, setPageSearch] = useState<number>(1);
+  // let [pageSearch, setPageSearch] = useState<number>(1);
   let [valueSelect, setValueSelect] = useState<string>('currentPopularOption');
-
   const dispatch = useDispatch<any>();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   let debounceFunc = (text: string) => {
     dispatch(
       getSearchArrayMovies({
         search: text,
-        page: pageSearch,
+        page: numberPage,
       }),
     );
   };
   const getValueInput = (e: any) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     setValueSearch(e.target.value);
     if (e.target.value) {
       debounce(debounceFunc, 2000)(e.target.value);
     } else {
-      dispatch(getPopularMovies({ text: '' }));
+      dispatch(getPopularMovies({ text: '', page: numberPage }));
     }
   };
   const getKeyDown = (e: any) => {
     if (e.key === 'Enter') {
-      dispatch(getSearchArrayMovies({ search: valueSearch, page: pageSearch }));
+      debounce(debounceFunc, 2000)(valueSearch);
       setValueSearch('');
     }
   };
@@ -50,26 +54,39 @@ const MainHead: React.FC = () => {
       if (show === 'visible') return 'hidden';
       return 'visible';
     });
-    dispatch(getPopularMovies({ text: '' }));
+    dispatch(getPopularMovies({ text: '', page: numberPage }));
   };
+
   const changeCategoryMovies = (e: any) => {
     console.log(e.target.value);
     if (e.target.value === 'ratingOption') {
-      dispatch(getPopularMovies({ text: 'top_rated' }));
+      dispatch(getPopularMovies({ text: 'top_rated', page: numberPage }));
       setValueSelect('ratingOption');
+      setValueSearch('');
     } else if (e.target.value === 'resentlyReleasedOption') {
-      dispatch(getPopularMovies({ text: 'now_playing' }));
+      dispatch(getPopularMovies({ text: 'now_playing', page: numberPage }));
       setValueSelect('resentlyReleasedOption');
+      setValueSearch('');
     } else {
-      dispatch(getPopularMovies({ text: '' }));
+      dispatch(getPopularMovies({ text: '', page: numberPage }));
       setValueSelect('currentPopularOption');
+      setValueSearch('');
     }
   };
 
   useEffect(() => {
-    dispatch(getPopularMovies({ text: '' }));
+    if (valueSearch) {
+      debounce(debounceFunc, 2000)(valueSearch);
+    } else if (valueSelect === 'resentlyReleasedOption') {
+      dispatch(getPopularMovies({ text: 'now_playing', page: numberPage }));
+    } else if (valueSelect === 'ratingOption') {
+      dispatch(getPopularMovies({ text: 'top_rated', page: numberPage }));
+    } else {
+      dispatch(getPopularMovies({ text: valueSearch, page: numberPage }));
+    }
+
     // dispatch(getAllMovies({ search: valueSearch, page: pageSearch }));
-  }, [dispatch]);
+  }, [dispatch, numberPage, valueSearch, valueSelect]);
   return (
     <div className={style.main__search}>
       <div className={style.main__search_button}>
