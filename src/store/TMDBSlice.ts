@@ -70,7 +70,7 @@ export const getPopularMovies = createAsyncThunk(
         throw new Error('Server Error');
       }
       let data = await response.json();
-      console.log(data);
+      // console.log(data);
       return data;
     } catch (error: any) {
       return rejectWithValue(error.message);

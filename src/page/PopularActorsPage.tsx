@@ -1,7 +1,75 @@
+import { useState, useEffect } from 'react';
+
+import { useDispatch } from 'react-redux';
+
 import style from './PopularActorsPage.module.css';
 
+import { ActorsBody } from '../components/PopularActors/ActorsBody';
+import { ActorsFooter } from '../components/PopularActors/ActorsFooter';
+import { ActorsHead } from '../components/PopularActors/ActorsHead';
+
+// import useScroll from '../hooks/useScroll';
+import backgroundActorsPage from '../image/backgroundActorsPage.png';
+import { getPopularActors, getSearchArrayActors } from '../store/TMDBActorsSlice';
+import { debounce } from '../utils/function';
+
 const PopularActorsPage = () => {
-  return <div className={style.p}>PopularActorsPage</div>;
+  let [fetching, setFetching] = useState<boolean>(true);
+  let [pageValue, setPageValue] = useState<string>('');
+  let [pageNumber, setPageNumber] = useState<number>(1);
+  let dispatch = useDispatch<any>();
+  let debounceFuncSearch = () => {
+    dispatch(
+      getSearchArrayActors({
+        search: pageValue,
+        page: pageNumber,
+      }),
+    );
+  };
+  let debounceFuncPopular = () => {
+    dispatch(
+      getPopularActors({
+        page: pageNumber,
+      }),
+    );
+  };
+  useEffect(() => {
+    setFetching(false);
+    if (fetching && pageValue) {
+      console.log('search');
+      debounce(debounceFuncSearch, 0)();
+      setPageNumber((item) => item + 1);
+      setPageValue('');
+    } else if (fetching && !pageValue) {
+      console.log('popular');
+      debounce(debounceFuncPopular, 0)();
+      setPageNumber((item) => item + 1);
+      setPageValue('');
+    }
+  }, [fetching]);
+  useEffect(() => {
+    document.addEventListener('scroll', scrollHandler);
+
+    return () => {
+      document.removeEventListener('scroll', scrollHandler);
+    };
+  }, []);
+
+  const scrollHandler = (e: any) => {
+    if (e.target.documentElement.scrollHeight - (e.target.documentElement.scrollTop + window.innerHeight) < 100) {
+      setFetching(true);
+    }
+  };
+  return (
+    <div className={style.main}>
+      <div className={style.main__image}>
+        <img className={style.main__image_img} src={backgroundActorsPage} alt='картинка фона' />
+      </div>
+      <ActorsHead setPageValue={setPageValue} />
+      <ActorsBody />
+      <ActorsFooter />
+    </div>
+  );
 };
 
-export { PopularActorsPage };
+export default PopularActorsPage;

@@ -13,9 +13,7 @@ const MainFooter: React.FC<Props> = (props: Props) => {
   return (
     <div className={style.pagination}>
       <Pagination
-        size='default'
         total={numberTotal}
-        defaultCurrent={1}
         pageSize={20}
         onChange={(page) => {
           setNumberPage(page);
