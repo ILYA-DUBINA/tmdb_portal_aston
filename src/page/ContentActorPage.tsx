@@ -6,7 +6,7 @@ import { ContentActorBody } from '../components/ContentActor/ContentActorBody';
 import { ContentActorFooter } from '../components/ContentActor/ContentActorFooter';
 import { ContentActorHead } from '../components/ContentActor/ContentActorHead';
 
-import backgroundContentFilmPAge from '../image/backgroundonContentFilmPage.png';
+import backgroundContentActorPage from '../image/backgroundContentActorPage.png';
 
 interface obj {
   biography: string;
@@ -23,7 +23,7 @@ const ContentActorPage = () => {
   return (
     <div className={style.contentfilm}>
       <div className={style.contentfilm__image}>
-        <img className={style.contentfilm__image_img} src={backgroundContentFilmPAge} alt='картинка фона' />
+        <img className={style.contentfilm__image_img} src={backgroundContentActorPage} alt='картинка фона' />
       </div>
       <ContentActorHead release_date={birthday} title={name} />
       <ContentActorBody poster_path={profile_path} overview={biography} />
