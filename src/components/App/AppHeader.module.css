@@ -15,7 +15,6 @@
 }
 .header__nav {
   display: flex;
-  /* justify-content: space-around; */
 }
 .header__nav_link {
   cursor: pointer;

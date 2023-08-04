@@ -84,13 +84,6 @@
 .card:hover .wrapper::after {
   height: 120px;
 }
-/* .title {
-  width: 100%;
-  transition: transform 0.5s;
-}
-.card:hover .title {
-  transform: translate3d(0%, -50px, 100px);
-} */
 
 .character {
   width: 100%;
@@ -121,9 +114,7 @@
 .card__content-data {
   margin: 0 10px;
 }
-.card__data-header {
-  /* background-color: black; */
-}
+
 .card__data-title,
 .card__data-time,
 .card__ganre-title,

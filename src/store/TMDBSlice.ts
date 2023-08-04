@@ -11,7 +11,6 @@ export const getSearchArrayMovies = createAsyncThunk(
   'tmdb/getSearchArrayMovies',
   async (obj: objSearch, { rejectWithValue }) => {
     const { search, page } = obj;
-    console.log(obj);
     try {
       let response = await fetch(
         `${urlConst}search/movie?api_key=${keyApi}&language=en-US&query=${search}&page=${
@@ -83,76 +82,38 @@ const TMDBSlice = createSlice({
     error: null,
     totalElements: 0,
   },
-  reducers: {
-    // getAllMovies(action) {
-    //   fetchTMDBFunc(`search/movie?query=${action.payload.search}&page=${action.payload.page}&api_key=${keyApi}`);
-    // },
-    // getPopularMovies() {
-    //   fetchTMDBFunc(`movie/popular?api_key=${keyApi}`);
-    // },
-    add(state, action) {
-      // state.tmdb.push({
-      //   id: new Date().toISOString(),
-      //   text: action.payload.text,
-      //   completed: false,
-      // });
-    },
-    remove(state, action) {},
-    toggle(state, action) {},
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getPopularMovies.pending, (state) => {
-        // state?.status = 'pending';
-        // state?.error = null;
-      })
+      .addCase(getPopularMovies.pending, (state) => {})
       .addCase(getPopularMovies.fulfilled, (state, action) => {
-        // state.status = 'idle';
-
         localStorage.setItem('array', JSON.stringify(action.payload.results));
         state.totalElements = action.payload.total_results;
         state.tmdb = action.payload.results ? action.payload.results : JSON.parse(localStorage.getItem('array') || '');
       })
-      .addCase(getPopularMovies.rejected, (state, action) => {
-        // state.loading = 'idle';
-        // state.error = action.error;
-      })
+      .addCase(getPopularMovies.rejected, (state, action) => {})
       .addCase(getSearchArrayMovies.pending, (state) => {
-        // state.status = 'pending';
         state.error = null;
       })
       .addCase(getSearchArrayMovies.fulfilled, (state, action) => {
-        // state.status = 'idle';
-
         localStorage.setItem('arraySearch', JSON.stringify(action.payload.results));
         state.totalElements = action.payload.total_results;
         state.tmdb = action.payload.results
           ? action.payload.results
           : JSON.parse(localStorage.getItem('arraySearch') || '');
       })
-      .addCase(getSearchArrayMovies.rejected, (state, action) => {
-        // state.loading = 'idle';
-        // state.error = action.error;
-      })
+      .addCase(getSearchArrayMovies.rejected, (state, action) => {})
       .addCase(getContentFilm.pending, (state) => {
-        // state.status = 'pending';
         state.error = null;
       })
       .addCase(getContentFilm.fulfilled, (state, action) => {
-        // state.status = 'idle';
-
         localStorage.setItem('contentFilm', JSON.stringify(action.payload));
         state.tmdbContentFilm = Object.keys(action.payload).length
           ? action.payload
           : JSON.parse(localStorage.getItem('contentFilm') || '');
       })
-      .addCase(getContentFilm.rejected, (state, action) => {
-        // state.loading = 'idle';
-        // state.error = action.error;
-      });
+      .addCase(getContentFilm.rejected, (state, action) => {});
   },
 });
-
-export const { add, remove, toggle } = TMDBSlice.actions;
 
 export default TMDBSlice.reducer;

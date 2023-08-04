@@ -9,28 +9,25 @@ import { ContentActorHead } from '../components/ContentActor/ContentActorHead';
 import backgroundContentFilmPAge from '../image/backgroundonContentFilmPage.png';
 
 interface obj {
-  budget: number;
-  genres: Array<object>;
-  overview: string;
+  biography: string;
   popularity: string;
-  poster_path: string;
-  production_companies: Array<object>;
-  release_date: string;
-  title: string;
+  profile_path: string;
+  place_of_birth: string;
+  birthday: string;
+  name: string;
 }
 
 const ContentActorPage = () => {
-  let film: any = useSelector<any>((item) => item.tmdb.tmdbContentFilm);
-  let { budget, genres, overview, popularity, poster_path, production_companies, release_date, title }: obj = film;
-  console.log(film);
+  let film: any = useSelector<any>((item) => item.tmdbActors.tmdbContentActor);
+  let { biography, popularity, profile_path, place_of_birth, birthday, name }: obj = film;
   return (
     <div className={style.contentfilm}>
       <div className={style.contentfilm__image}>
         <img className={style.contentfilm__image_img} src={backgroundContentFilmPAge} alt='картинка фона' />
       </div>
-      <ContentActorHead release_date={release_date} title={title} genres={genres} />
-      <ContentActorBody poster_path={poster_path} overview={overview} />
-      <ContentActorFooter budget={budget} popularity={popularity} production_companies={production_companies} />
+      <ContentActorHead release_date={birthday} title={name} />
+      <ContentActorBody poster_path={profile_path} overview={biography} />
+      <ContentActorFooter popularity={popularity} production_companies={place_of_birth} />
     </div>
   );
 };

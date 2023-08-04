@@ -3,11 +3,8 @@ import { Link } from 'react-router-dom';
 
 import style from './AppHeader.module.css';
 
-// import ghost from '../../image/ghost.png';
 import ghostOne from '../../image/ghost1.png';
 import ghostTwo from '../../image/ghost2.png';
-// import ghostThree from '../../image/ghost3.png';
-// import ghostFour from '../../image/ghost4.png';
 
 const AppHeader = () => {
   let [opacity, setOpacity] = useState('opacity');
