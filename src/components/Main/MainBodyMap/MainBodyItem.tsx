@@ -2,7 +2,8 @@
 // import style from './MainBody.module.css';
 
 import moment from 'moment';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { SpinerLoadingImage } from '../../../spinerLoading/spinerLoading';
 import { minify } from '../../../utils/function';
@@ -10,16 +11,17 @@ import './MainBodyItem.css';
 // import { useState } from 'react';
 // eslint-disable-next-line import/order
 // import poster_path from '../../../image/background.jpg';
+import { getContentFilm } from '../../../store/TMDBSlice';
 
 const MainBodyItem = (props: any) => {
   // let [valueSearch, setValueSearch] = useState(null);
-  // const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<any>();
 
   // dispatch(fetchTMDBFunc());
 
   let image;
   // let { genre_ids, id, overview, popularity, poster_path, release_date, title } = props;
-  let { title, release_date, overview, poster_path } = props;
+  let { id, title, release_date, overview, poster_path } = props;
 
   if (poster_path !== null) {
     image = (
@@ -32,7 +34,12 @@ const MainBodyItem = (props: any) => {
   } else {
     image = <SpinerLoadingImage />;
   }
+
+  const getFilmId = () => {
+    dispatch(getContentFilm({ id: id }));
+  };
   return (
+    // <Link to={'/contentFilm'}>
     <li className='card__outside'>
       {/* <div className='card'>
         <div className='card__content'>
@@ -54,7 +61,7 @@ const MainBodyItem = (props: any) => {
           </div>
         </div>
       </div> */}
-      <a href='/'>
+      <Link to={'/contentFilm'} onClick={getFilmId}>
         <div className='card'>
           <div className='wrapper'>
             {image}
@@ -80,7 +87,7 @@ const MainBodyItem = (props: any) => {
           {/* <img className='title' src={original_title} /> */}
           {/* <img className='character' src={poster_path} /> */}
         </div>
-      </a>
+      </Link>
       {/* <a href='https://www.mythrillfiction.com/the-dark-rider'>
         <div className='card'>
           <div className='wrapper'>
@@ -91,6 +98,7 @@ const MainBodyItem = (props: any) => {
         </div>
       </a> */}
     </li>
+    // </Link>
   );
 };
 

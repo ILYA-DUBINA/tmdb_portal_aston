@@ -16,6 +16,7 @@ import { MainPage } from './page/MainPage';
 // import { getAllMovies } from './store/TMDBSlice';
 
 const PopularActorsPage = lazy(() => import('./page/PopularActorsPage'));
+const ContentFilmPage = lazy(() => import('./page/ContentFilmPage'));
 
 const App = () => {
   return (
@@ -23,7 +24,14 @@ const App = () => {
       <AppHeader />
       <Routes>
         <Route path='/' element={<MainPage />} />
-        {/* <Route path='/contentFilm' element={<ContentFilmPage />} /> */}
+        <Route
+          path='/contentFilm'
+          element={
+            <Suspense fallback={'loading ....'}>
+              <ContentFilmPage />
+            </Suspense>
+          }
+        />
         <Route
           path='/popularActors'
           element={

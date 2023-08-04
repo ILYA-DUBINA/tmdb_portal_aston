@@ -28,6 +28,24 @@ export const getSearchArrayMovies = createAsyncThunk(
     }
   },
 );
+type objFilmId = {
+  id: number;
+};
+export const getContentFilm = createAsyncThunk('tmdb/getContentFilm', async (obj: objFilmId, { rejectWithValue }) => {
+  const { id } = obj;
+  console.log(id);
+  try {
+    let response = await fetch(`${urlConst}movie/${id}?api_key=${keyApi}&language=en-US`);
+    if (!response.ok) {
+      throw new Error('Server Error');
+    }
+    let data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error: any) {
+    return rejectWithValue(error.message);
+  }
+});
 type objPopular = {
   text: string;
   page: number;
@@ -61,6 +79,7 @@ const TMDBSlice = createSlice({
   name: 'tmdb',
   initialState: {
     tmdb: [],
+    tmdbContentFilm: [],
     status: null,
     error: null,
     totalElements: 0,
@@ -113,6 +132,22 @@ const TMDBSlice = createSlice({
           : JSON.parse(localStorage.getItem('arraySearch') || '');
       })
       .addCase(getSearchArrayMovies.rejected, (state, action) => {
+        // state.loading = 'idle';
+        // state.error = action.error;
+      })
+      .addCase(getContentFilm.pending, (state) => {
+        // state.status = 'pending';
+        state.error = null;
+      })
+      .addCase(getContentFilm.fulfilled, (state, action) => {
+        // state.status = 'idle';
+
+        localStorage.setItem('contentFilm', JSON.stringify(action.payload));
+        state.tmdbContentFilm = Object.keys(action.payload).length
+          ? action.payload
+          : JSON.parse(localStorage.getItem('contentFilm') || '');
+      })
+      .addCase(getContentFilm.rejected, (state, action) => {
         // state.loading = 'idle';
         // state.error = action.error;
       });
