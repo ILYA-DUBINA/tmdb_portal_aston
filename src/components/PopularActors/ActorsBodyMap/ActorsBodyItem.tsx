@@ -2,24 +2,26 @@
 // import style from './MainBody.module.css';
 
 // import moment from 'moment';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { SpinerLoadingImage } from '../../../spinerLoading/spinerLoading';
+import { Link } from 'react-router-dom';
 // import { minify } from '../../../utils/function';
 import './ActorsBodyItem.css';
 // import { useState } from 'react';
 // eslint-disable-next-line import/order
 // import poster_path from '../../../image/background.jpg';
+import { getContentActor } from '../../../store/TMDBActorsSlice';
 
 const ActorsBodyItem = (props: any) => {
   // let [valueSearch, setValueSearch] = useState(null);
-  // const dispatch = useDispatch<any>();
+  const dispatch = useDispatch<any>();
 
   // dispatch(fetchTMDBFunc());
 
   let image;
   // let { genre_ids, id, overview, popularity, poster_path, release_date, title } = props;
-  let { name, known_for, profile_path } = props;
+  let { id, name, known_for, profile_path } = props;
 
   if (profile_path !== null) {
     image = (
@@ -32,6 +34,9 @@ const ActorsBodyItem = (props: any) => {
   } else {
     image = <SpinerLoadingImage />;
   }
+  const getActorId = () => {
+    dispatch(getContentActor({ id: id }));
+  };
   return (
     <li className='card__outside'>
       {/* <div className='card'>
@@ -54,7 +59,7 @@ const ActorsBodyItem = (props: any) => {
           </div>
         </div>
       </div> */}
-      <a href='/'>
+      <Link to={'/contentActor'} onClick={getActorId}>
         <div className='card'>
           <div className='wrapper'>
             {image}
@@ -85,7 +90,7 @@ const ActorsBodyItem = (props: any) => {
           {/* <img className='title' src={original_title} /> */}
           {/* <img className='character' src={poster_path} /> */}
         </div>
-      </a>
+      </Link>
       {/* <a href='https://www.mythrillfiction.com/the-dark-rider'>
         <div className='card'>
           <div className='wrapper'>

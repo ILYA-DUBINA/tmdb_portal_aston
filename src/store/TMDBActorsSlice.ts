@@ -29,6 +29,27 @@ export const getSearchArrayActors = createAsyncThunk(
     }
   },
 );
+type objActorId = {
+  id: number;
+};
+export const getContentActor = createAsyncThunk(
+  'tmdb/getContentActor',
+  async (obj: objActorId, { rejectWithValue }) => {
+    const { id } = obj;
+    try {
+      let response = await fetch(`${urlConst}person/${id}?api_key=${keyApi}&language=en-US`);
+      if (!response.ok) {
+        throw new Error('Server Error');
+      }
+      let data = await response.json();
+      console.log(data);
+      return data;
+    } catch (error: any) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
+
 type objPopular = {
   page: number;
 };
@@ -78,6 +99,7 @@ const TMDBActorsSlice = createSlice({
     tmdbActors: [],
     tmdbSearchActors: [],
     personData: [],
+    tmdbContentActor: {},
     status: null,
     error: null,
     totalElements: 0,
@@ -129,23 +151,22 @@ const TMDBActorsSlice = createSlice({
       .addCase(getSearchArrayActors.rejected, (state, action) => {
         // state.loading = 'idle';
         // state.error = action.error;
+      })
+      .addCase(getContentActor.pending, (state) => {
+        // state.status = 'pending';
+        state.error = null;
+      })
+      .addCase(getContentActor.fulfilled, (state: any, action) => {
+        // state.status = 'idle';
+        localStorage.setItem('contentActor', JSON.stringify(action.payload));
+        state.tmdbContentActor = Object.keys(action.payload).length
+          ? action.payload
+          : JSON.parse(localStorage.getItem('contentActor') || '');
+      })
+      .addCase(getContentActor.rejected, (state, action) => {
+        // state.loading = 'idle';
+        // state.error = action.error;
       });
-    // .addCase(getPersonId.pending, (state) => {
-    //   // state.status = 'pending';
-    //   state.error = null;
-    // })
-    // .addCase(getPersonId.fulfilled, (state, action) => {
-    //   // state.status = 'idle';
-
-    //   localStorage.setItem('arrayParsonData', JSON.stringify(action.payload.results));
-    //   state.personData = action.payload.results
-    //     ? action.payload.results
-    //     : JSON.parse(localStorage.getItem('arrayParsonData') || '');
-    // })
-    // .addCase(getPersonId.rejected, (state, action) => {
-    //   // state.loading = 'idle';
-    //   // state.error = action.error;
-    // });
   },
 });
 

@@ -33,7 +33,6 @@ type objFilmId = {
 };
 export const getContentFilm = createAsyncThunk('tmdb/getContentFilm', async (obj: objFilmId, { rejectWithValue }) => {
   const { id } = obj;
-  console.log(id);
   try {
     let response = await fetch(`${urlConst}movie/${id}?api_key=${keyApi}&language=en-US`);
     if (!response.ok) {
@@ -79,7 +78,7 @@ const TMDBSlice = createSlice({
   name: 'tmdb',
   initialState: {
     tmdb: [],
-    tmdbContentFilm: [],
+    tmdbContentFilm: {},
     status: null,
     error: null,
     totalElements: 0,

@@ -17,6 +17,7 @@ import { MainPage } from './page/MainPage';
 
 const PopularActorsPage = lazy(() => import('./page/PopularActorsPage'));
 const ContentFilmPage = lazy(() => import('./page/ContentFilmPage'));
+const ContentActorPage = lazy(() => import('./page/ContentActorPage'));
 
 const App = () => {
   return (
@@ -40,7 +41,14 @@ const App = () => {
             </Suspense>
           }
         />
-        {/* <Route path='/contentActor' element={<ContentActorPage />} /> */}
+        <Route
+          path='/contentActor'
+          element={
+            <Suspense fallback={'loading ....'}>
+              <ContentActorPage />
+            </Suspense>
+          }
+        />
         {/* <Route path='/error404' element={<Error404Page />} />
         <Route path='/errorBoundary' element={<ErrorBoundaryPage />} /> */}
       </Routes>
