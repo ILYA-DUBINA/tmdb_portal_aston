@@ -8,7 +8,6 @@ import { ActorsBody } from '../components/PopularActors/ActorsBody';
 import { ActorsFooter } from '../components/PopularActors/ActorsFooter';
 import { ActorsHead } from '../components/PopularActors/ActorsHead';
 
-// import useScroll from '../hooks/useScroll';
 import backgroundActorsPage from '../image/backgroundActorsPage.png';
 import { getPopularActors, getSearchArrayActors } from '../store/TMDBActorsSlice';
 import { debounce } from '../utils/function';
@@ -36,16 +35,13 @@ const PopularActorsPage = () => {
   useEffect(() => {
     setFetching(false);
     if (fetching && pageValue) {
-      console.log('search');
       debounce(debounceFuncSearch, 0)();
       setPageNumber((item) => item + 1);
-      setPageValue('');
     } else if (fetching && !pageValue) {
-      console.log('popular');
       debounce(debounceFuncPopular, 0)();
       setPageNumber((item) => item + 1);
-      setPageValue('');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetching]);
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);

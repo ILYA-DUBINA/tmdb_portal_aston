@@ -1,5 +1,4 @@
-// import debounce from 'lodash';
-import { useState, useCallback } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 
 import style from './ActorsHead.module.css';
@@ -7,12 +6,8 @@ import style from './ActorsHead.module.css';
 import ghostFour from '../../image/ghost4.png';
 import searchGhost from '../../image/search.png';
 import { getPopularActors, getSearchArrayActors } from '../../store/TMDBActorsSlice';
-import { debounce } from '../../utils/function';
+import { useDebounce } from '../../utils/Debounce';
 
-// type objValue = {
-//   search: string,
-//   page: number
-// };
 interface Props {
   setPageValue: Function;
 }
@@ -21,35 +16,21 @@ const ActorsHead: React.FC<Props> = (props) => {
   let { setPageValue } = props;
   let [show, setShow] = useState('hidden');
   let [valueSearch, setValueSearch] = useState<string>('');
-  let [pageSearch, setPageSearch] = useState<number>(1);
-  // let [valueSelect, setValueSelect] = useState<string>('currentPopularOption');
+  let [lengthSearchValue, setLengthSearchValue] = useState<number>(0);
   const dispatch = useDispatch<any>();
-  // let debounceFunc = debounce(dispatch(getSearchArrayActors), 1000);
-  // dispatch(
-  //   getSearchArrayActors({
-  //     search: text,
-  //     page: pageSearch,
-  //   }),
-  // );
-  // };
-  const getValueInput = (e: any) => {
-    console.log(e.target.value);
-
-    if (e.target.value) {
-      dispatch(
-        getSearchArrayActors({
-          search: e.target.value,
-          page: pageSearch,
-        }),
-      );
-      setValueSearch(e.target.value);
-      setPageValue(e.target.value);
-    }
+  const debouncedValue = useDebounce<string>(valueSearch, 1000);
+  const getValueInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValueSearch(e.target.value);
+    setLengthSearchValue(e.target.value.length);
   };
   const getKeyDown = (e: any) => {
-    if (e.key === 'Enter') {
-      // debounce(debounceFunc, 2000)(valueSearch);
+    if (e.key === 'Enter' && debouncedValue) {
+      dispatch(
+        getSearchArrayActors({
+          search: debouncedValue,
+          page: 1,
+        }),
+      );
       setValueSearch('');
     }
   };
@@ -61,23 +42,30 @@ const ActorsHead: React.FC<Props> = (props) => {
     });
   };
 
-  // useEffect(() => {
-  //   dispatch(
-  //     debounceFunc({
-  //       search: valueSearch,
-  //       page: pageSearch,
-  //     }),
-  // );
-  //   if (valueSearch) {
-  //     debounce(debounceFunc, 2000)(valueSearch);
-  //   } else {
-  //     dispatch(getPopularActors({ page: pageSearch }));
-  //   }
-  // window.location.reload();
-  // dispatch(getAllMovies({ search: valueSearch, page: pageSearch }));
-  // }, [valueSearch]);
+  useEffect(() => {
+    if (debouncedValue) {
+      dispatch(
+        getSearchArrayActors({
+          search: debouncedValue,
+          page: 1,
+        }),
+      );
+      setPageValue(debouncedValue);
+    }
+    setPageValue(debouncedValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue]);
+  useEffect(() => {
+    if (lengthSearchValue) {
+      dispatch(
+        getPopularActors({
+          page: 1,
+        }),
+      );
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lengthSearchValue]);
 
-  const debouncedChangeHandler = debounce(getValueInput, 1000);
   return (
     <div className={style.main__search}>
       <div className={style.main__search_button}>
@@ -97,7 +85,7 @@ const ActorsHead: React.FC<Props> = (props) => {
           type='text'
           id='main__search'
           value={valueSearch}
-          onChange={debouncedChangeHandler}
+          onChange={getValueInput}
           onKeyDown={getKeyDown}
           autoComplete='off'
         />
