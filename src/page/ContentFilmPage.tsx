@@ -22,7 +22,6 @@ interface obj {
 const ContentFilmPage = () => {
   let film: any = useSelector<any>((item) => item.tmdb.tmdbContentFilm);
   let { budget, genres, overview, popularity, poster_path, production_companies, release_date, title }: obj = film;
-  console.log(film);
   return (
     <div className={style.contentfilm}>
       <div className={style.contentfilm__image}>

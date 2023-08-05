@@ -4,14 +4,14 @@ import style from './ContentActorFooter.module.css';
 
 interface Props {
   popularity: string;
-  production_companies: string;
+  place_of_birth: string;
 }
 
-export const ContentActorFooter: React.FC<Props> = ({ popularity, production_companies }) => {
+export const ContentActorFooter: React.FC<Props> = ({ popularity, place_of_birth }) => {
   return (
     <div className={style.footer}>
-      <div className={style.footer__rating}>&#9885; {popularity}</div>
-      <div className={style.footer__make}>{production_companies}</div>
+      <div className={style.footer__rating}>Рейтинг популярности: &#9885; {popularity}</div>
+      {place_of_birth ? <div className={style.footer__make}>Место рождения: {place_of_birth} </div> : null}
     </div>
   );
 };

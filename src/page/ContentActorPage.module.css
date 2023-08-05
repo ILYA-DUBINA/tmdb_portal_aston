@@ -1,4 +1,4 @@
-.contentfilm__image {
+.contentactor__image {
   width: 100%;
   height: 100%;
 
@@ -8,7 +8,7 @@
 
   transform: translate(-50%, -50%);
 }
-.contentfilm__image_img {
+.contentactor__image_img {
   width: 100%;
   height: 100%;
 }

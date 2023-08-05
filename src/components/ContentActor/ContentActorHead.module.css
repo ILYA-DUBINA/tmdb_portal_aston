@@ -1,4 +1,4 @@
-.headerfilm {
+.headeractor {
   position: relative;
   font-size: 30px;
 
@@ -6,6 +6,6 @@
 
   z-index: 10;
 }
-.headerfilm span {
+.headeractor span {
   margin: 0 30px 0 0;
 }

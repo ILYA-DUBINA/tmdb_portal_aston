@@ -81,12 +81,19 @@ const TMDBActorsSlice = createSlice({
     error: null,
     totalElements: 0,
   },
-  reducers: {},
+  reducers: {
+    clearTmdbActors(state) {
+      state.tmdbActors = [];
+      state.tmdbSearchActors = [];
+      state.tmdbContentActor = {};
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getPopularActors.pending, (state) => {})
       .addCase(getPopularActors.fulfilled, (state: any, action) => {
         state.tmdbSearchActors = [];
+        state.tmdbContentActor = {};
         state.tmdbActors = [...state.tmdbActors, ...action.payload.results];
       })
       .addCase(getPopularActors.rejected, (state, action) => {})
@@ -95,6 +102,7 @@ const TMDBActorsSlice = createSlice({
       })
       .addCase(getSearchArrayActors.fulfilled, (state: any, action) => {
         state.tmdbActors = [];
+        state.tmdbContentActor = {};
         state.tmdbSearchActors = [...state.tmdbSearchActors, ...action.payload.results];
       })
       .addCase(getSearchArrayActors.rejected, (state, action) => {})
@@ -103,6 +111,8 @@ const TMDBActorsSlice = createSlice({
       })
       .addCase(getContentActor.fulfilled, (state: any, action) => {
         localStorage.setItem('contentActor', JSON.stringify(action.payload));
+        state.tmdbSearchActors = [];
+        state.tmdbActors = [];
         state.tmdbContentActor = Object.keys(action.payload).length
           ? action.payload
           : JSON.parse(localStorage.getItem('contentActor') || '');
@@ -110,5 +120,5 @@ const TMDBActorsSlice = createSlice({
       .addCase(getContentActor.rejected, (state, action) => {});
   },
 });
-
+export const { clearTmdbActors } = TMDBActorsSlice.actions;
 export default TMDBActorsSlice.reducer;

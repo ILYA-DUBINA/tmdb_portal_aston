@@ -5,7 +5,7 @@ import style from './ActorsHead.module.css';
 
 import ghostFour from '../../image/ghost4.png';
 import searchGhost from '../../image/search.png';
-import { getPopularActors, getSearchArrayActors } from '../../store/TMDBActorsSlice';
+import { clearTmdbActors, getPopularActors, getSearchArrayActors } from '../../store/TMDBActorsSlice';
 import { useDebounce } from '../../utils/Debounce';
 
 interface Props {
@@ -16,12 +16,19 @@ const ActorsHead: React.FC<Props> = (props) => {
   let { setPageValue } = props;
   let [show, setShow] = useState('hidden');
   let [valueSearch, setValueSearch] = useState<string>('');
-  let [lengthSearchValue, setLengthSearchValue] = useState<number>(0);
+  // let [lengthSearchValue, setLengthSearchValue] = useState<number>(0);
   const dispatch = useDispatch<any>();
   const debouncedValue = useDebounce<string>(valueSearch, 1000);
   const getValueInput = (e: ChangeEvent<HTMLInputElement>) => {
     setValueSearch(e.target.value);
-    setLengthSearchValue(e.target.value.length);
+    if (!e.target.value) {
+      dispatch(
+        getPopularActors({
+          page: 1,
+        }),
+      );
+    }
+    // setLengthSearchValue(e.target.value.length);
   };
   const getKeyDown = (e: any) => {
     if (e.key === 'Enter' && debouncedValue) {
@@ -41,7 +48,14 @@ const ActorsHead: React.FC<Props> = (props) => {
       return 'visible';
     });
   };
-
+  const clearContent = () => {
+    dispatch(clearTmdbActors());
+    dispatch(
+      getPopularActors({
+        page: 1,
+      }),
+    );
+  };
   useEffect(() => {
     if (debouncedValue) {
       dispatch(
@@ -55,16 +69,16 @@ const ActorsHead: React.FC<Props> = (props) => {
     setPageValue(debouncedValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue]);
-  useEffect(() => {
-    if (lengthSearchValue) {
-      dispatch(
-        getPopularActors({
-          page: 1,
-        }),
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lengthSearchValue]);
+  // useEffect(() => {
+  //   if (lengthSearchValue) {
+  //     dispatch(
+  //       getPopularActors({
+  //         page: 1,
+  //       }),
+  //     );
+  //   }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [lengthSearchValue]);
 
   return (
     <div className={style.main__search}>
@@ -87,6 +101,7 @@ const ActorsHead: React.FC<Props> = (props) => {
           value={valueSearch}
           onChange={getValueInput}
           onKeyDown={getKeyDown}
+          onFocus={clearContent}
           autoComplete='off'
         />
       </div>

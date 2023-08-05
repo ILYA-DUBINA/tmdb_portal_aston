@@ -1,19 +1,23 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import style from './AppHeader.module.css';
 
 import ghostOne from '../../image/ghost1.png';
 import ghostTwo from '../../image/ghost2.png';
+import { clearTmdbActors } from '../../store/TMDBActorsSlice';
 
 const AppHeader = () => {
   let [opacity, setOpacity] = useState('opacity');
   let [dontOpacity, setDontOpacity] = useState('');
+  let dispatch = useDispatch<any>();
   const changeOpacity = () => {
     setOpacity('opacity');
     setDontOpacity('');
   };
   const changeOpacityTwo = () => {
+    dispatch(clearTmdbActors());
     setOpacity('');
     setDontOpacity('opacity');
   };
