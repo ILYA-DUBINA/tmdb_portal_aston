@@ -1,11 +1,9 @@
 .pagination {
-  height: 100%;
-
   position: relative;
 
   text-align: center;
 
-  padding-bottom: 18px;
+  padding-bottom: 20px;
 
   z-index: 10;
 }
@@ -15,4 +13,16 @@
 }
 .pagination__component {
   color: white;
+}
+.pagination__error {
+  font-size: 20px;
+  font-weight: 600;
+
+  position: relative;
+
+  margin: 0 0 30px 0;
+
+  color: red;
+
+  z-index: 10;
 }

@@ -50,10 +50,10 @@ button {
   outline: none;
 }
 .MainFooter_pagination__rK0bR {
-  max-width: 450px;
+  max-width: 750px;
 
   padding: 0 0 0 0;
-  margin: 0 auto 60px auto;
+  margin: 0 auto 0 auto;
 }
 :where(.css-dev-only-do-not-override-txh9fw).ant-pagination
   .ant-pagination-jump-prev

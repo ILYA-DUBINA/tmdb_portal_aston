@@ -77,8 +77,8 @@ const TMDBActorsSlice = createSlice({
     tmdbSearchActors: [],
     personData: [],
     tmdbContentActor: {},
-    status: null,
-    error: null,
+    status: '',
+    error: null as unknown as {},
     totalElements: 0,
   },
   reducers: {
@@ -90,24 +90,35 @@ const TMDBActorsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getPopularActors.pending, (state) => {})
+      .addCase(getPopularActors.pending, (state) => {
+        state.status = 'loading';
+        state.error = {};
+      })
       .addCase(getPopularActors.fulfilled, (state: any, action) => {
         state.tmdbSearchActors = [];
         state.tmdbContentActor = {};
         state.tmdbActors = [...state.tmdbActors, ...action.payload.results];
       })
-      .addCase(getPopularActors.rejected, (state, action) => {})
+      .addCase(getPopularActors.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error;
+      })
       .addCase(getSearchArrayActors.pending, (state) => {
-        state.error = null;
+        state.status = 'loading';
+        state.error = {};
       })
       .addCase(getSearchArrayActors.fulfilled, (state: any, action) => {
         state.tmdbActors = [];
         state.tmdbContentActor = {};
         state.tmdbSearchActors = [...state.tmdbSearchActors, ...action.payload.results];
       })
-      .addCase(getSearchArrayActors.rejected, (state, action) => {})
+      .addCase(getSearchArrayActors.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error;
+      })
       .addCase(getContentActor.pending, (state) => {
-        state.error = null;
+        state.status = 'loading';
+        state.error = {};
       })
       .addCase(getContentActor.fulfilled, (state: any, action) => {
         localStorage.setItem('contentActor', JSON.stringify(action.payload));
@@ -117,7 +128,10 @@ const TMDBActorsSlice = createSlice({
           ? action.payload
           : JSON.parse(localStorage.getItem('contentActor') || '');
       })
-      .addCase(getContentActor.rejected, (state, action) => {});
+      .addCase(getContentActor.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error;
+      });
   },
 });
 export const { clearTmdbActors } = TMDBActorsSlice.actions;

@@ -5,12 +5,12 @@ import style from './App.module.css';
 import { AppHeader } from './components/App/AppHeader';
 import { Error404 } from './components/Error/Error404';
 import ErrorBoundary from './components/Error/ErrorBoundary';
-import { MainPage } from './page/MainPage';
 import { SpinerLoading } from './spinerLoading/spinerLoading';
 
 const PopularActorsPage = lazy(() => import('./page/PopularActorsPage'));
 const ContentFilmPage = lazy(() => import('./page/ContentFilmPage'));
 const ContentActorPage = lazy(() => import('./page/ContentActorPage'));
+const MainPage = lazy(() => import('./page/MainPage'));
 
 const App = () => {
   return (

@@ -78,7 +78,7 @@ const TMDBSlice = createSlice({
     tmdb: [],
     tmdbContentFilm: {},
     status: '',
-    error: null,
+    error: null as unknown as {},
     totalElements: 0,
   },
   reducers: {},
@@ -86,7 +86,7 @@ const TMDBSlice = createSlice({
     builder
       .addCase(getPopularMovies.pending, (state) => {
         state.status = 'loading';
-        state.error = null;
+        state.error = {};
       })
       .addCase(getPopularMovies.fulfilled, (state, action) => {
         state.status = 'fulfilled';
@@ -96,11 +96,11 @@ const TMDBSlice = createSlice({
       })
       .addCase(getPopularMovies.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.payload;
+        state.error = action.error;
       })
       .addCase(getSearchArrayMovies.pending, (state) => {
         state.status = 'loading';
-        state.error = null;
+        state.error = {};
       })
       .addCase(getSearchArrayMovies.fulfilled, (state, action) => {
         localStorage.setItem('arraySearch', JSON.stringify(action.payload.results));
@@ -109,13 +109,13 @@ const TMDBSlice = createSlice({
           ? action.payload.results
           : JSON.parse(localStorage.getItem('arraySearch') || '');
       })
-      .addCase(getSearchArrayMovies.rejected, (state, action) => {
+      .addCase(getSearchArrayMovies.rejected, (state: any, action) => {
         state.status = 'rejected';
         state.error = action.payload;
       })
       .addCase(getContentFilm.pending, (state) => {
         state.status = 'loading';
-        state.error = null;
+        state.error = {};
       })
       .addCase(getContentFilm.fulfilled, (state, action) => {
         localStorage.setItem('contentFilm', JSON.stringify(action.payload));
@@ -123,7 +123,7 @@ const TMDBSlice = createSlice({
           ? action.payload
           : JSON.parse(localStorage.getItem('contentFilm') || '');
       })
-      .addCase(getContentFilm.rejected, (state, action) => {
+      .addCase(getContentFilm.rejected, (state: any, action) => {
         state.status = 'rejected';
         state.error = action.payload;
       });

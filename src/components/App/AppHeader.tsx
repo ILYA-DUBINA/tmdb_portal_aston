@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -22,6 +22,16 @@ const AppHeader = () => {
     setOpacity('');
     setDontOpacity('opacity');
   };
+  useEffect(() => {
+    if (window.location.pathname === '/popularActors') {
+      setOpacity('');
+      setDontOpacity('opacity');
+    } else {
+      setOpacity('opacity');
+      setDontOpacity('');
+    }
+  }, []);
+
   return (
     <header className={style.header}>
       <nav className={style.header__nav}>
