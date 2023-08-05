@@ -29,8 +29,47 @@
 }
 
 .loading {
+  position: relative;
+
   font-size: 30px;
   font-weight: 600;
 
   color: white;
+
+  z-index: 100;
+}
+.loading__imageOne {
+  max-width: 100px;
+  height: 100%;
+}
+.loading__imageTwo {
+  max-width: 100px;
+  height: 100%;
+}
+.loading__title {
+  font-size: 30px;
+  font-weight: 600;
+
+  color: white;
+
+  background-color: transparent;
+}
+
+@-webkit-keyframes rotate {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.loading__imageOne {
+  transform-origin: 140% -60%;
+  animation: rotate 8s linear infinite;
+}
+.loading__imageTwo {
+  transform-origin: 0% 180%;
+  animation: rotate 14s linear infinite;
 }

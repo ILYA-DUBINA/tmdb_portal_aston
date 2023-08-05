@@ -77,21 +77,29 @@ const TMDBSlice = createSlice({
   initialState: {
     tmdb: [],
     tmdbContentFilm: {},
-    status: null,
+    status: '',
     error: null,
     totalElements: 0,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getPopularMovies.pending, (state) => {})
+      .addCase(getPopularMovies.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
       .addCase(getPopularMovies.fulfilled, (state, action) => {
+        state.status = 'fulfilled';
         localStorage.setItem('array', JSON.stringify(action.payload.results));
         state.totalElements = action.payload.total_results;
         state.tmdb = action.payload.results ? action.payload.results : JSON.parse(localStorage.getItem('array') || '');
       })
-      .addCase(getPopularMovies.rejected, (state, action) => {})
+      .addCase(getPopularMovies.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.payload;
+      })
       .addCase(getSearchArrayMovies.pending, (state) => {
+        state.status = 'loading';
         state.error = null;
       })
       .addCase(getSearchArrayMovies.fulfilled, (state, action) => {
@@ -101,8 +109,12 @@ const TMDBSlice = createSlice({
           ? action.payload.results
           : JSON.parse(localStorage.getItem('arraySearch') || '');
       })
-      .addCase(getSearchArrayMovies.rejected, (state, action) => {})
+      .addCase(getSearchArrayMovies.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.payload;
+      })
       .addCase(getContentFilm.pending, (state) => {
+        state.status = 'loading';
         state.error = null;
       })
       .addCase(getContentFilm.fulfilled, (state, action) => {
@@ -111,7 +123,10 @@ const TMDBSlice = createSlice({
           ? action.payload
           : JSON.parse(localStorage.getItem('contentFilm') || '');
       })
-      .addCase(getContentFilm.rejected, (state, action) => {});
+      .addCase(getContentFilm.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.payload;
+      });
   },
 });
 
