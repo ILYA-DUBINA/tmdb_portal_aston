@@ -17,7 +17,8 @@ const AppHeader = () => {
     setDontOpacity('');
   };
   const changeOpacityTwo = () => {
-    dispatch(clearTmdbActors());
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    opacity ? dispatch(clearTmdbActors()) : null;
     setOpacity('');
     setDontOpacity('opacity');
   };

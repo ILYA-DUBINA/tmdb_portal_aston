@@ -1,0 +1,30 @@
+.error {
+  max-width: 600px;
+
+  display: inline-block;
+  position: relative;
+
+  font-size: 20px;
+
+  border-radius: 30px;
+  padding: 10px;
+
+  color: red;
+
+  background-color: rgba(255, 255, 255, 0.1);
+
+  z-index: 100;
+}
+.error__image {
+  max-width: 100px;
+}
+.error__image_img {
+  max-width: 100px;
+  position: absolute;
+  left: -120px;
+}
+.error__text {
+  font-size: 25px;
+  font-weight: 600;
+  text-align: left;
+}
