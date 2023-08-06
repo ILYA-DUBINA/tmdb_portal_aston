@@ -14,7 +14,6 @@
 .main__search .button__search {
   font-size: 20px;
   font-weight: 600;
-
   text-decoration: none;
 
   padding: 40px 20px 40px 20px;
@@ -34,9 +33,13 @@
 }
 .character {
   width: 100%;
-  opacity: 0;
-  transition: all 0.5s;
+
   position: absolute;
+
+  opacity: 0;
+
+  transition: all 0.5s;
+
   z-index: -1;
 }
 @keyframes rotate {
@@ -57,31 +60,41 @@
 }
 .main__search_button::before {
   content: '';
-  position: absolute;
-  z-index: -2;
-  left: -50%;
-  top: -50%;
+
   width: 200%;
   height: 200%;
+
+  position: absolute;
+  left: -50%;
+  top: -50%;
+
   background-color: transparent;
   background-repeat: no-repeat;
   background-image: conic-gradient(transparent, rgba(168, 239, 255, 1), transparent 30%);
   background-position: 70px 30px;
+
   animation: rotate 15s linear infinite;
+  z-index: -2;
 }
 .main__search_button::after {
   content: '';
-  position: absolute;
-  z-index: -1;
-  left: 6px;
-  top: 6px;
+
   width: calc(100% - 12px);
   height: calc(100% - 12px);
-  background: transparent;
+
+  position: absolute;
+  left: 6px;
+  top: 6px;
+
   border-radius: 5px;
+
+  background: transparent;
+
+  z-index: -1;
 }
 .main__search_button:hover .character {
   opacity: 1;
+
   transform: translate3d(0%, -30%, 100px);
 }
 @keyframes opacityChange {

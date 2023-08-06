@@ -55,9 +55,9 @@ const PopularActorsPage = () => {
     }
   };
   return (
-    <div className={style.main}>
-      <div className={style.main__image}>
-        <img className={style.main__image_img} src={backgroundActorsPage} alt='картинка фона' />
+    <div className={style.actor}>
+      <div className={style.actor__image}>
+        <img className={style.actor__image_img} src={backgroundActorsPage} alt='картинка фона' />
       </div>
       <ActorsHead setPageValue={setPageValue} />
       <ActorsBody />

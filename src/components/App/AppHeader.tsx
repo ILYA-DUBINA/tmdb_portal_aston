@@ -9,16 +9,15 @@ import ghostTwo from '../../image/ghost2.png';
 import { clearTmdbActors } from '../../store/TMDBActorsSlice';
 
 const AppHeader = () => {
-  let [opacity, setOpacity] = useState('opacity');
-  let [dontOpacity, setDontOpacity] = useState('');
+  let [opacity, setOpacity] = useState<string>('opacity');
+  let [dontOpacity, setDontOpacity] = useState<string>('');
   let dispatch = useDispatch<any>();
   const changeOpacity = () => {
     setOpacity('opacity');
     setDontOpacity('');
   };
   const changeOpacityTwo = () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    opacity ? dispatch(clearTmdbActors()) : null;
+    opacity && dispatch(clearTmdbActors());
     setOpacity('');
     setDontOpacity('opacity');
   };

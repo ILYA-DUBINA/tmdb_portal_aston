@@ -27,7 +27,6 @@
 
   z-index: 100;
 }
-
 .loading {
   position: relative;
 
@@ -54,7 +53,6 @@
 
   background-color: transparent;
 }
-
 @-webkit-keyframes rotate {
   100% {
     transform: rotate(-360deg);

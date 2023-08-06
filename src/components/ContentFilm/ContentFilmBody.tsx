@@ -28,7 +28,6 @@ export const ContentFilmBody: React.FC<Props> = ({ poster_path, overview }) => {
       <div className={style.content__image}>{image}</div>
       <div className={style.content__text}>
         <h5 className={style.content__text_title}>{overview}</h5>
-        <p></p>
       </div>
     </section>
   );

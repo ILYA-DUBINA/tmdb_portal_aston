@@ -4,21 +4,23 @@
 .card {
   width: var(--card-width);
   height: var(--card-height);
+
   position: relative;
+
   display: flex;
   justify-content: center;
   align-items: flex-end;
+
   padding: 0 36px;
   perspective: 2500px;
   margin: 0 50px;
 }
-
 .cover-image {
   width: 100%;
   height: 100%;
+
   object-fit: cover;
 }
-
 .wrapper {
   width: 100%;
   height: 100%;
@@ -54,50 +56,56 @@
   -webkit-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 2px 35px 32px -8px rgba(0, 0, 0, 0.75);
 }
-
 .wrapper::before,
 .wrapper::after {
   content: '';
-  opacity: 0;
+
   width: 100%;
   height: 80px;
-  transition: all 0.5s;
+
   position: absolute;
   left: 0;
+
+  opacity: 0;
+
+  transition: all 0.5s;
 }
 .wrapper::before {
-  top: 0;
   height: 100%;
+
+  top: 0;
+
   background-image: linear-gradient(to top, transparent 46%, rgba(12, 13, 19, 0.5) 68%, rgba(12, 13, 19) 97%);
 }
 .wrapper::after {
   bottom: 0;
+
   opacity: 1;
+
   background-image: linear-gradient(to bottom, transparent 46%, rgba(12, 13, 19, 0.5) 68%, rgba(12, 13, 19) 97%);
 }
-
 .card:hover .wrapper::before,
 .wrapper::after {
   opacity: 1;
 }
-
 .card:hover .wrapper::after {
   height: 120px;
 }
-
 .character {
   width: 100%;
-  opacity: 0;
-  transition: all 0.5s;
+
   position: absolute;
+
+  opacity: 0;
+
+  transition: all 0.5s;
   z-index: -1;
 }
-
 .card:hover .character {
   opacity: 1;
+
   transform: translate3d(0%, -30%, 100px);
 }
-
 .card__inside {
   max-width: 454px;
 
@@ -110,11 +118,9 @@
   display: flex;
   justify-content: space-between;
 }
-
 .card__content-data {
   margin: 0 10px;
 }
-
 .card__data-title,
 .card__ganre-title,
 .card__ganre-name,
@@ -129,7 +135,6 @@
 
   color: white;
 }
-
 .card__data-ganre {
   display: flex;
 
@@ -153,7 +158,6 @@
 
   padding: 0 0 0 0;
 }
-
 .card__content-image {
   height: 281px;
 }
@@ -162,6 +166,7 @@
 }
 .card__data-movies {
   margin: 10px 0px 20px 0px;
+
   color: #fff;
 }
 .movies__film {

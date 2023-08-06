@@ -7,6 +7,7 @@ interface Props {
   birthday: string;
   name: string;
 }
+
 export const ContentActorHead: React.FC<Props> = ({ birthday, name }) => {
   return (
     <div className={style.headeractor}>

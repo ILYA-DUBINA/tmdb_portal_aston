@@ -7,7 +7,10 @@ interface Props {
   popularity: string;
   production_companies: Array<object>;
 }
-
+type obj = {
+  id?: number;
+  name?: string;
+};
 export const ContentFilmFooter: React.FC<Props> = ({ budget, popularity, production_companies }) => {
   return (
     <div className={style.footer}>
@@ -15,7 +18,7 @@ export const ContentFilmFooter: React.FC<Props> = ({ budget, popularity, product
       <div className={style.footer__budget}>Бюджет: {budget}$</div>
       <div className={style.footer__make}>
         Компании производители:
-        {production_companies?.map((item: any) => {
+        {production_companies?.map((item: obj) => {
           return <span key={item.id}>{item.name}</span>;
         })}
       </div>
