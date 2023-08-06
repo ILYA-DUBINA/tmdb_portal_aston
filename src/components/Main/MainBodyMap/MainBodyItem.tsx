@@ -3,12 +3,20 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { SpinerLoadingImage } from '../../../spinerLoading/spinerLoading';
+import { getContentFilm } from '../../../store/TMDBSlice';
 import { minify } from '../../../utils/function';
 import './MainBodyItem.css';
-// eslint-disable-next-line import/order
-import { getContentFilm } from '../../../store/TMDBSlice';
 
-const MainBodyItem = (props: any) => {
+interface Props {
+  id: number;
+  title: string;
+  known_for: object[];
+  overview: string;
+  poster_path: string;
+  release_date: string;
+}
+
+export const MainBodyItem: React.FC<Props> = (props) => {
   const dispatch = useDispatch<any>();
 
   let image;
@@ -53,5 +61,3 @@ const MainBodyItem = (props: any) => {
     </li>
   );
 };
-
-export { MainBodyItem };

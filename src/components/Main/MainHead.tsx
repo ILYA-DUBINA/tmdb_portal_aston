@@ -19,10 +19,10 @@ export const MainHead: React.FC<Props> = (props: Props): any => {
   let [valueSelect, setValueSelect] = useState<string>('currentPopularOption');
   const debouncedValue = useDebounce<string>(valueSearch, 1000);
   const dispatch = useDispatch<any>();
-  const getValueInput = (e: any) => {
+  const getValueInput = (e: { target: { value: string } }) => {
     setValueSearch(e.target.value);
   };
-  const getKeyDown = (e: any) => {
+  const getKeyDown = (e: { key: string }) => {
     if (e.key === 'Enter' && debouncedValue) {
       dispatch(
         getSearchArrayMovies({
@@ -33,7 +33,7 @@ export const MainHead: React.FC<Props> = (props: Props): any => {
       setValueSearch('');
     }
   };
-  const getShowClick = (e: any) => {
+  const getShowClick = (e: { preventDefault: Function }) => {
     e.preventDefault();
     setShow((show) => {
       if (show === 'visible') return 'hidden';
@@ -41,7 +41,7 @@ export const MainHead: React.FC<Props> = (props: Props): any => {
     });
   };
 
-  const changeCategoryMovies = (e: any) => {
+  const changeCategoryMovies = (e: { target: { value: string } }) => {
     if (e.target.value === 'ratingOption') {
       dispatch(getPopularMovies({ text: 'top_rated', page: numberPage }));
       setValueSelect('ratingOption');

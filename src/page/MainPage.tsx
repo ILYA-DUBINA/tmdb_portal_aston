@@ -8,7 +8,7 @@ import { MainHead } from '../components/Main/MainHead';
 import backgroundMainPage from '../image/backgroundMainPage.jpg';
 
 const MainPage = () => {
-  let [numberPage, setNumberPage] = useState(1);
+  let [numberPage, setNumberPage] = useState<number>(1);
   return (
     <div className={style.main}>
       <div className={style.main__image}>

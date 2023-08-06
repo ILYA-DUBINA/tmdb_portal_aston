@@ -7,10 +7,13 @@ import style from './MainFooter.module.css';
 interface Props {
   setNumberPage: Function;
 }
-const MainFooter: React.FC<Props> = (props: Props) => {
+
+export const MainFooter: React.FC<Props> = (props: Props) => {
   let { setNumberPage } = props;
-  let [pageOneTime, setPageOneTime] = useState(1);
-  let { totalElements, error } = useSelector((item: any) => item.tmdb);
+  let [pageOneTime, setPageOneTime] = useState<number>(1);
+  let { totalElements, error } = useSelector(
+    (item: { tmdb: { totalElements: number; error: { message: string } } }) => item.tmdb,
+  );
   return (
     <>
       <div className={style.pagination}>
@@ -34,5 +37,3 @@ const MainFooter: React.FC<Props> = (props: Props) => {
     </>
   );
 };
-
-export { MainFooter };

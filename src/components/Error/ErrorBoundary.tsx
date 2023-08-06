@@ -4,18 +4,25 @@ import style from './ErrorBoundary.module.css';
 
 import ghostError from '../../image/ghostError.png';
 
-export default class ErrorBoundary extends React.Component {
-  constructor(props) {
+interface StateType {
+  isError: boolean;
+  error: { error: string };
+}
+
+export default class ErrorBoundary extends React.Component<{}, StateType> {
+  constructor(props: any) {
     super(props);
-    this.state = { isError: false, error: null };
+    this.state = { isError: false, error: { error: '' } };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: object) {
     return { isError: true, error };
   }
 
   render() {
     let { isError, error } = this.state;
+    let { children }: any = this.props;
+
     if (isError) {
       return (
         <div className={style.error}>
@@ -27,6 +34,6 @@ export default class ErrorBoundary extends React.Component {
         </div>
       );
     }
-    return this.props.children;
+    return children;
   }
 }

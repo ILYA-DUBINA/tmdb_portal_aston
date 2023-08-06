@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import style from './ActorsHead.module.css';
@@ -12,14 +12,13 @@ interface Props {
   setPageValue: Function;
 }
 
-const ActorsHead: React.FC<Props> = (props) => {
+export const ActorsHead: React.FC<Props> = (props) => {
   let { setPageValue } = props;
-  let [show, setShow] = useState('hidden');
+  let [show, setShow] = useState<string>('hidden');
   let [valueSearch, setValueSearch] = useState<string>('');
-  // let [lengthSearchValue, setLengthSearchValue] = useState<number>(0);
   const dispatch = useDispatch<any>();
   const debouncedValue = useDebounce<string>(valueSearch, 1000);
-  const getValueInput = (e: ChangeEvent<HTMLInputElement>) => {
+  const getValueInput = (e: { target: { value: string } }) => {
     setValueSearch(e.target.value);
     if (!e.target.value) {
       dispatch(
@@ -28,9 +27,8 @@ const ActorsHead: React.FC<Props> = (props) => {
         }),
       );
     }
-    // setLengthSearchValue(e.target.value.length);
   };
-  const getKeyDown = (e: any) => {
+  const getKeyDown = (e: { key: string }) => {
     if (e.key === 'Enter' && debouncedValue) {
       dispatch(
         getSearchArrayActors({
@@ -41,7 +39,7 @@ const ActorsHead: React.FC<Props> = (props) => {
       setValueSearch('');
     }
   };
-  const getShowClick = (e: any) => {
+  const getShowClick = (e: { preventDefault: Function }) => {
     e.preventDefault();
     setShow((show) => {
       if (show === 'visible') return 'hidden';
@@ -69,16 +67,6 @@ const ActorsHead: React.FC<Props> = (props) => {
     setPageValue(debouncedValue);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue]);
-  // useEffect(() => {
-  //   if (lengthSearchValue) {
-  //     dispatch(
-  //       getPopularActors({
-  //         page: 1,
-  //       }),
-  //     );
-  //   }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [lengthSearchValue]);
 
   return (
     <div className={style.main__search}>
@@ -111,5 +99,3 @@ const ActorsHead: React.FC<Props> = (props) => {
     </div>
   );
 };
-
-export { ActorsHead };

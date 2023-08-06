@@ -5,13 +5,11 @@ import { useDispatch } from 'react-redux';
 import style from './PopularActorsPage.module.css';
 
 import { ActorsBody } from '../components/PopularActors/ActorsBody';
-import { ActorsFooter } from '../components/PopularActors/ActorsFooter';
 import { ActorsHead } from '../components/PopularActors/ActorsHead';
 
 import backgroundActorsPage from '../image/backgroundActorsPage.png';
 import { getPopularActors, getSearchArrayActors } from '../store/TMDBActorsSlice';
 import { debounce } from '../utils/function';
-
 const PopularActorsPage = () => {
   let [fetching, setFetching] = useState<boolean>(true);
   let [pageValue, setPageValue] = useState<string>('');
@@ -63,7 +61,6 @@ const PopularActorsPage = () => {
       </div>
       <ActorsHead setPageValue={setPageValue} />
       <ActorsBody />
-      <ActorsFooter />
     </div>
   );
 };

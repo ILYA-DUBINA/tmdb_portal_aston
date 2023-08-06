@@ -2,12 +2,11 @@ import { Spin } from 'antd';
 
 import style from './spinerLoading.module.css';
 
+import ghost from '../image/ghost3.png';
 import ghostLoading from '../image/ghostLoading.png';
 import ghostLoading2 from '../image/ghostLoading2.png';
 
 import 'antd/dist/reset.css';
-// eslint-disable-next-line import/order
-import ghost from '../image/ghost3.png';
 
 export const SpinerLoading = () => (
   <div className={style.loading}>

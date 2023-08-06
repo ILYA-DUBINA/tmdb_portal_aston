@@ -69,7 +69,15 @@ export const getPopularActors = createAsyncThunk(
     }
   },
 );
-
+interface State {
+  tmdbActors: object[];
+  tmdbSearchActors: object[];
+  personData: object[];
+  tmdbContentActor: {};
+  status: string;
+  error: {};
+  totalElements: number;
+}
 const TMDBActorsSlice = createSlice({
   name: 'tmdbActors',
   initialState: {
@@ -90,11 +98,11 @@ const TMDBActorsSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getPopularActors.pending, (state) => {
+      .addCase(getPopularActors.pending, (state, action) => {
         state.status = 'loading';
         state.error = {};
       })
-      .addCase(getPopularActors.fulfilled, (state: any, action) => {
+      .addCase(getPopularActors.fulfilled, (state: State, action) => {
         state.tmdbSearchActors = [];
         state.tmdbContentActor = {};
         state.tmdbActors = [...state.tmdbActors, ...action.payload.results];
@@ -107,7 +115,7 @@ const TMDBActorsSlice = createSlice({
         state.status = 'loading';
         state.error = {};
       })
-      .addCase(getSearchArrayActors.fulfilled, (state: any, action) => {
+      .addCase(getSearchArrayActors.fulfilled, (state: State, action) => {
         state.tmdbActors = [];
         state.tmdbContentActor = {};
         state.tmdbSearchActors = [...state.tmdbSearchActors, ...action.payload.results];
@@ -120,7 +128,7 @@ const TMDBActorsSlice = createSlice({
         state.status = 'loading';
         state.error = {};
       })
-      .addCase(getContentActor.fulfilled, (state: any, action) => {
+      .addCase(getContentActor.fulfilled, (state: State, action) => {
         localStorage.setItem('contentActor', JSON.stringify(action.payload));
         state.tmdbSearchActors = [];
         state.tmdbActors = [];
