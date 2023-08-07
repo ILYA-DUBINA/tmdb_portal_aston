@@ -6,7 +6,7 @@ import { ContentFilmBody } from '../components/ContentFilm/ContentFilmBody';
 import { ContentFilmFooter } from '../components/ContentFilm/ContentFilmFooter';
 import { ContentFilmHead } from '../components/ContentFilm/ContentFilmHead';
 
-import backgroundContentFilmPAge from '../image/backgroundonContentFilmPage.png';
+import backgroundContentFilmPAge from '../image/backgroundonContentFilmPage.jpg';
 
 interface obj {
   budget: number;

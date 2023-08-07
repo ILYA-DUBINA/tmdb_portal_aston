@@ -7,7 +7,7 @@ import style from './PopularActorsPage.module.css';
 import { ActorsBody } from '../components/PopularActors/ActorsBody';
 import { ActorsHead } from '../components/PopularActors/ActorsHead';
 
-import backgroundActorsPage from '../image/backgroundActorsPage.png';
+import backgroundActorsPage from '../image/backgroundActorsPage.jpg';
 import { getPopularActors, getSearchArrayActors } from '../store/TMDBActorsSlice';
 import { debounce } from '../utils/function';
 const PopularActorsPage = () => {

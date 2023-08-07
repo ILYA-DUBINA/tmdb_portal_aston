@@ -6,7 +6,7 @@ import { ContentActorBody } from '../components/ContentActor/ContentActorBody';
 import { ContentActorFooter } from '../components/ContentActor/ContentActorFooter';
 import { ContentActorHead } from '../components/ContentActor/ContentActorHead';
 
-import backgroundContentActorPage from '../image/backgroundContentActorPage.png';
+import backgroundContentActorPage from '../image/backgroundContentActorPage.jpg';
 
 interface obj {
   biography: string;
