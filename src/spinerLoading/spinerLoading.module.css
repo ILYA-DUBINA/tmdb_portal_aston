@@ -11,16 +11,17 @@
   top: 50%;
   left: 50%;
 
-  opacity: 0.5;
+  opacity: 0.3;
 
-  transform: translate(-50%, 30%);
+  transform: translate(-50%, 0%);
 
   z-index: 1;
 }
 .spiner__spin_text {
   position: relative;
+  top: 80px;
 
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 600;
 
   color: red;

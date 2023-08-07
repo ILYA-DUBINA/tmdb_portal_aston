@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import style from './ActorsHead.module.css';
@@ -12,7 +12,7 @@ interface Props {
   setPageValue: Function;
 }
 
-export const ActorsHead: React.FC<Props> = (props) => {
+export const ActorsHead: React.FC<Props> = memo(function ActorsHead(props) {
   let { setPageValue } = props;
   let [show, setShow] = useState<string>('hidden');
   let [valueSearch, setValueSearch] = useState<string>('');
@@ -98,4 +98,4 @@ export const ActorsHead: React.FC<Props> = (props) => {
       </div>
     </div>
   );
-};
+});

@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -34,9 +35,9 @@ export const MainBodyItem: React.FC<Props> = (props) => {
     image = <SpinerLoadingImage />;
   }
 
-  const getFilmId = () => {
+  const getFilmId = useCallback(() => {
     dispatch(getContentFilm({ id: id }));
-  };
+  }, [dispatch, id]);
   return (
     <li className='card__outside'>
       <Link to={'/contentFilm'} onClick={getFilmId}>

@@ -22,7 +22,8 @@ export const SpinerLoading = () => (
 export const SpinerLoadingImage = () => (
   <div className={style.spiner}>
     <img className={style.spiner__image} src={ghost} alt='картинка призрака' />
-    <Spin></Spin>
-    <span className={style.spiner__spin_text}>The image is loading... or the image is not</span>
+    <span className={style.spiner__spin_text}>
+      The image is loading...<Spin></Spin> or the image is not
+    </span>
   </div>
 );

@@ -14,9 +14,9 @@ const MainPage = () => {
       <div className={style.main__image}>
         <img className={style.main__image_img} src={backgroundMainPage} alt='картинка фона' />
       </div>
-      <MainHead numberPage={numberPage} />
+      <MainHead numberPage={numberPage} setNumberPage={setNumberPage} />
       <MainBody />
-      <MainFooter setNumberPage={setNumberPage} />
+      <MainFooter setNumberPage={setNumberPage} numberPage={numberPage} />
     </div>
   );
 };

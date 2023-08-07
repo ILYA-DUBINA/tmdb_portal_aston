@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
@@ -32,9 +33,9 @@ export const ActorsBodyItem: React.FC<Props> = (props) => {
   } else {
     image = <SpinerLoadingImage />;
   }
-  const getActorId = () => {
+  const getActorId = useCallback(() => {
     dispatch(getContentActor({ id: id }));
-  };
+  }, [dispatch, id]);
   return (
     <li className='card__outside'>
       <Link to={'/contentActor'} onClick={getActorId}>

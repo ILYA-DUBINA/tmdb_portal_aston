@@ -7,6 +7,7 @@ type objSearch = {
   search: string;
   page: number;
 };
+
 export const getSearchArrayMovies = createAsyncThunk(
   'tmdb/getSearchArrayMovies',
   async (obj: objSearch, { rejectWithValue }) => {
@@ -27,9 +28,11 @@ export const getSearchArrayMovies = createAsyncThunk(
     }
   },
 );
+
 type objFilmId = {
   id: number;
 };
+
 export const getContentFilm = createAsyncThunk('tmdb/getContentFilm', async (obj: objFilmId, { rejectWithValue }) => {
   const { id } = obj;
   try {
@@ -43,10 +46,12 @@ export const getContentFilm = createAsyncThunk('tmdb/getContentFilm', async (obj
     return rejectWithValue(error.message);
   }
 });
+
 type objPopular = {
   text: string;
   page: number;
 };
+
 export const getPopularMovies = createAsyncThunk(
   'tmdb/getPopularMovies',
   async function (obj: objPopular, { rejectWithValue }) {
@@ -72,6 +77,7 @@ export const getPopularMovies = createAsyncThunk(
     }
   },
 );
+
 interface State {
   tmdb: object[];
   tmdbContentFilm: {};
@@ -79,6 +85,7 @@ interface State {
   error: {};
   totalElements: number;
 }
+
 const TMDBSlice = createSlice({
   name: 'tmdb',
   initialState: {

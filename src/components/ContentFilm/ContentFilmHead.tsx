@@ -12,6 +12,7 @@ type obj = {
   id?: number;
   name?: string;
 };
+
 export const ContentFilmHead: React.FC<Props> = ({ release_date, title, genres }) => {
   return (
     <div className={style.headerfilm}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import style from './MainHead.module.css';
@@ -10,10 +10,11 @@ import { useDebounce } from '../../utils/Debounce';
 
 interface Props {
   numberPage: number;
+  setNumberPage: Function;
 }
 
-export const MainHead: React.FC<Props> = (props: Props): any => {
-  let { numberPage } = props;
+export const MainHead: React.FC<Props> = memo(function MainHead(props) {
+  let { numberPage, setNumberPage } = props;
   let [show, setShow] = useState('hidden');
   let [valueSearch, setValueSearch] = useState<string>('');
   let [valueSelect, setValueSelect] = useState<string>('currentPopularOption');
@@ -40,23 +41,24 @@ export const MainHead: React.FC<Props> = (props: Props): any => {
       return 'visible';
     });
   };
-
   const changeCategoryMovies = (e: { target: { value: string } }) => {
     if (e.target.value === 'ratingOption') {
       dispatch(getPopularMovies({ text: 'top_rated', page: numberPage }));
       setValueSelect('ratingOption');
       setValueSearch('');
+      setNumberPage(1);
     } else if (e.target.value === 'resentlyReleasedOption') {
       dispatch(getPopularMovies({ text: 'now_playing', page: numberPage }));
       setValueSelect('resentlyReleasedOption');
       setValueSearch('');
+      setNumberPage(1);
     } else {
       dispatch(getPopularMovies({ text: '', page: numberPage }));
       setValueSelect('currentPopularOption');
       setValueSearch('');
+      setNumberPage(1);
     }
   };
-
   useEffect(() => {
     if (debouncedValue) {
       dispatch(
@@ -123,4 +125,4 @@ export const MainHead: React.FC<Props> = (props: Props): any => {
       </div>
     </div>
   );
-};
+});
