@@ -136,6 +136,6 @@ button {
 
   position: relative;
 }
-.ant-pagination-options {
+:where(.css-txh9fw).ant-pagination .ant-pagination-options {
   display: none;
 }
