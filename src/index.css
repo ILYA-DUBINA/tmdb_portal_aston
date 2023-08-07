@@ -32,20 +32,26 @@ button {
 }
 
 /* pagination */
+:where(.css-txh9fw).ant-pagination .ant-pagination-options,
+.ant-pagination-options,
 :where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-options {
   display: none;
 }
 .anticon,
 :where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item-active:hover a,
-:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item a {
+:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item a .anticon,
+:where(.css-txh9fw).ant-pagination .ant-pagination-item-active:hover a,
+:where(.css-txh9fw).ant-pagination .ant-pagination-item a {
   font-size: 18px;
 
   color: white;
 }
-:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item-active:hover a {
+:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item-active:hover a,
+:where(.css-txh9fw).ant-pagination .ant-pagination-item-active:hover a {
   font-size: 0;
 }
-:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item-active:hover {
+:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item-active:hover,
+:where(.css-txh9fw).ant-pagination .ant-pagination-item-active:hover {
   border: none;
   outline: none;
 }
@@ -62,6 +68,14 @@ button {
 :where(.css-dev-only-do-not-override-txh9fw).ant-pagination
   .ant-pagination-jump-next
   .ant-pagination-item-container
+  .ant-pagination-item-ellipsis,
+:where(.css-txh9fw).ant-pagination
+  .ant-pagination-jump-prev
+  .ant-pagination-item-container
+  .ant-pagination-item-ellipsis,
+:where(.css-txh9fw).ant-pagination
+  .ant-pagination-jump-next
+  .ant-pagination-item-container
   .ant-pagination-item-ellipsis {
   color: rgba(255, 255, 255, 0.6);
 }
@@ -70,11 +84,14 @@ button {
   .ant-pagination-item-link-icon,
 :where(.css-dev-only-do-not-override-txh9fw).ant-pagination
   .ant-pagination-jump-next:hover
-  .ant-pagination-item-link-icon {
+  .ant-pagination-item-link-icon,
+:where(.css-txh9fw).ant-pagination .ant-pagination-jump-prev:hover .ant-pagination-item-link-icon,
+:where(.css-txh9fw).ant-pagination .ant-pagination-jump-next:hover .ant-pagination-item-link-icon {
   color: rgba(255, 255, 255, 0.6);
 }
 
-:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item-active {
+:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item-active,
+:where(.css-txh9fw).ant-pagination .ant-pagination-item-active {
   font-weight: 400;
 
   border-color: transparent;
@@ -84,31 +101,36 @@ button {
   box-shadow: 0px 0px 91px 5px rgba(255, 255, 255, 1);
 }
 
-:where(.css-dev-only-do-not-override-txh9fw).ant-pagination
-  .ant-pagination-item:not(.ant-pagination-item-active):hover {
+:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover,
+:where(.css-txh9fw).ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover {
   background-image: url('./image/ghostNumber.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
 :where(.css-dev-only-do-not-override-txh9fw).ant-pagination
   .ant-pagination-item:not(.ant-pagination-item-active):hover
-  a {
+  a,
+:where(.css-txh9fw).ant-pagination .ant-pagination-item:not(.ant-pagination-item-active):hover a {
   font-size: 0;
 }
-:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item-active a {
+:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-item-active a,
+:where(.css-txh9fw).ant-pagination .ant-pagination-item-active a {
   font-size: 30px;
 }
-:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-disabled {
+:where(.css-dev-only-do-not-override-txh9fw).ant-pagination .ant-pagination-disabled,
+:where(.css-txh9fw).ant-pagination .ant-pagination-disabled {
   opacity: 0.5;
 }
 
 /* loading */
+:where(.css-txh9fw).ant-spin .ant-spin-dot-item,
 :where(.css-dev-only-do-not-override-txh9fw).ant-spin .ant-spin-dot-item {
   width: 10px;
   height: 10px;
 
   background-color: #fff;
 }
+:where(.css-txh9fw).ant-spin-nested-loading > div > .ant-spin .ant-spin-dot,
 :where(.css-dev-only-do-not-override-txh9fw).ant-spin-nested-loading > div > .ant-spin .ant-spin-dot {
   width: 50px;
   height: 50px;
@@ -117,12 +139,14 @@ button {
   top: 110px;
   left: 0px;
 }
+:where(.css-txh9fw).ant-spin-nested-loading,
 :where(.css-dev-only-do-not-override-txh9fw).ant-spin-nested-loading {
   position: relative;
   top: 30px;
 
   background-color: black;
 }
+:where(.css-txh9fw).ant-spin-nested-loading > div > .ant-spin,
 :where(.css-dev-only-do-not-override-txh9fw).ant-spin-nested-loading > div > .ant-spin {
   background-color: transparent;
 }
@@ -130,13 +154,10 @@ button {
   justify-content: center;
 }
 /* loadingAllContent */
-:where(.css-dev-only-do-not-override-txh9fw).ant-spin .ant-spin-dot-spin {
+:where(.css-dev-only-do-not-override-txh9fw).ant-spin .ant-spin-dot-spin,
+:where(.css-txh9fw).ant-spin .ant-spin-dot-spin {
   width: 50px;
   height: 50px;
 
   position: relative;
-}
-:where(.css-txh9fw).ant-pagination .ant-pagination-options,
-.ant-pagination-options {
-  display: none;
 }
