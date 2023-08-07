@@ -136,3 +136,6 @@ button {
 
   position: relative;
 }
+.ant-select-selection-item {
+  display: none;
+}
